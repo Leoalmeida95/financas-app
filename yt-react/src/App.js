@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 
 
 // function App() {
@@ -11,10 +10,19 @@ import { render } from '@testing-library/react';
 // }
 
 class App extends React.Component{
+
+  state = {
+    nome: ''
+  }
+
   render(){
     return(
-           <div>
-         hello world
+    <div>
+      <label>O que? </label>
+      <input type="text" values={this.state.nome} onChange={(e) => this.setState({nome: e.target.value})}></input>
+
+      <br/>
+      chupa: {this.state.nome}
      </div>
    );
   }
