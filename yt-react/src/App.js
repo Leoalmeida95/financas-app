@@ -1,22 +1,18 @@
 import React from 'react';
 
+import Login from './views/login';
 
-// function App() {
-//   return (
-//     <div>
-//         hello world
-//     </div>
-//   );
-// }
+import 'bootswatch/dist/sketchy/bootstrap.css';
 
 class App extends React.Component{
+
   render(){
     return(
     <div>
-     
+      <Login/>
      </div>
-   );
+   )
   }
 }
 
-export default App;
+export default App
