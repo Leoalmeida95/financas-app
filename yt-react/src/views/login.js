@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Card from '../components/card'
 class Login extends React.Component{
 
     render(){
@@ -7,7 +7,9 @@ class Login extends React.Component{
             <div className="container">
                 <div className="row">
                         <div className="col-md-6" style={ {position: 'relative', left:'300px'}}>
-                            Hello
+                            <Card title='Login'>
+                                    Meu cartão
+                            </Card>
                         </div>
                 </div>
             </div>
