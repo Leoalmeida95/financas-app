@@ -17,6 +17,11 @@ class App extends React.Component{
     resultado:null
   }
 
+  somar = () => {
+    const resultado = parseInt(this.state.numero1) + parseInt(this.state.numero2);
+    this.setState({resultado:resultado});
+  }
+
   render(){
     return(
     <div>
@@ -24,7 +29,7 @@ class App extends React.Component{
       <input type="text" values={this.state.numero1} onChange={(e) => this.setState({numero1: e.target.value})}></input> +
       <input type="text" values={this.state.numero2} onChange={(e) => this.setState({numero2: e.target.value})}></input> 
       <br/>
-      <button onClick={()=> this.setState({resultado: parseInt(this.state.numero1) + parseInt(this.state.numero2)})}>Somar</button>
+      <button onClick={this.somar}>Somar</button>
       <br/>
       <br/>
       Resultado: {this.state.resultado}
