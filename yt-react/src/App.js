@@ -18,11 +18,11 @@ class App extends React.Component{
   render(){
     return(
     <div>
-      <label>O que? </label>
+      <label>Nome:</label>
       <input type="text" values={this.state.nome} onChange={(e) => this.setState({nome: e.target.value})}></input>
 
       <br/>
-      chupa: {this.state.nome}
+      O nome digitado foi: {this.state.nome}
      </div>
    );
   }
