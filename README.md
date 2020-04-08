@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Dependencies
 ### `npm install bootswatch`
 ### `npm install react-router-dom`
+### `npm install axios`
 
 ## Available Scripts
 
