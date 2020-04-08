@@ -15,7 +15,6 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="container">
                 <div className="row">
                     <div className="col-md-6" style={{ position: 'relative', left: '300px' }}>
                         <Card title='Login'>
@@ -46,7 +45,6 @@ class Login extends React.Component {
                         </Card>
                     </div>
                 </div>
-            </div>
         )
     }
 }
