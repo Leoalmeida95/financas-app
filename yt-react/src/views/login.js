@@ -18,6 +18,12 @@ class Login extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }).then(response => {
+            //a informacao do usuario poderia ser salva em coockie ou localStorage
+            //O localStorage é acessado somente no front, enquanto o coockie é também no back
+            localStorage.setItem(
+                                '_usuario_logado', 
+                                JSON.stringify(response.data) //transforma o obj em string
+                                )
             this.props.history.push('/');
         }).catch(erro => {
             this.setState({mensagemErro: erro.response.data})
