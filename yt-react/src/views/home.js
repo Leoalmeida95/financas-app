@@ -10,7 +10,7 @@ class Home extends React.Component {
 
     componentDidMount(){
         var usuario_logado = JSON.parse(localStorage.getItem('_usuario_logado'));  
-        this.state.usuario_email = usuario_logado.email;
+        this.setState({usuario_email: usuario_logado.email});
         //usando a crase pra transformar a url em um tamplateString
         axios.get(`http://localhost:8080/api/usuarios/${usuario_logado.id}/saldo`)
              .then(response => {
