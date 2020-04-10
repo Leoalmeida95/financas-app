@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import UsuarioService from '../app/service/usuarioService'
 
 class Home extends React.Component {
 
@@ -8,17 +8,22 @@ class Home extends React.Component {
         usuario_email: null
     }
 
+    constructor() {
+        super();
+        this.usuarioService = new UsuarioService();
+    }
+
     componentDidMount(){
         var usuario_logado = JSON.parse(localStorage.getItem('_usuario_logado'));  
         this.setState({usuario_email: usuario_logado.email});
-        //usando a crase pra transformar a url em um tamplateString
-        axios.get(`http://localhost:8080/api/usuarios/${usuario_logado.id}/saldo`)
-             .then(response => {
-                 this.setState({saldo: response.data})
-             })
-             .catch(error => {
-                
-             })
+
+        this.usuarioService.obterSaldoPorUsuario(usuario_logado.id)
+            .then(response => {
+                this.setState({saldo: response.data})
+            })
+            .catch(error => {
+            
+            })
     }
 
     render() {

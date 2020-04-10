@@ -8,6 +8,10 @@ class UsuarioService extends ApiService{
     autenticar(credencias){
         return this.post('/autenticar', credencias);
     }
+
+    obterSaldoPorUsuario(id){
+        return this.get(`/${id}/saldo`);//usando a crase pra transformar a url em um tamplateString
+    }
 }
 
 export default UsuarioService;
