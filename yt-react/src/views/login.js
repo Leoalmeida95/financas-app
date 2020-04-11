@@ -40,7 +40,7 @@ class Login extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-6" style={{ position: 'relative', left: '300px' }}>
-                    <Card title='Login' colorText='white' colorCard='danger'>
+                    <Card title='Login' colorText='dark' colorCard='light'>
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="bs-component">
@@ -62,7 +62,7 @@ class Login extends React.Component {
                                                     placeholder="Senha" />
                                             </FormGroup>
                                             <button onClick={this.entrar} className="btn btn-success">Entrar</button>
-                                            <button onClick={this.prepareCadastrar} className="btn btn-light">Cadastrar</button>
+                                            <button onClick={this.prepareCadastrar} className="btn btn-warning">Cadastrar</button>
                                         </form>
                                     </fieldset>
                                 </div>
