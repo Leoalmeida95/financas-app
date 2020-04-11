@@ -23,12 +23,12 @@ class Login extends React.Component {
         this.service.autenticar({
             email: this.state.email,
             senha: this.state.senha
-        }).then(response => {
-            LocalStorageService.adicionarItem('_usuario_logado', response.data);                   
-            this.props.history.push('/');
-        }).catch(erro => {
-            this.setState({ mensagemErro: erro.response.data })
-        })
+                }).then(response => {
+                    LocalStorageService.adicionarItem('_usuario_logado', response.data);                   
+                    this.props.history.push('/');
+                }).catch(error => {
+                    this.setState({ mensagemErro: error.response.data });
+                })
     }
 
     prepareCadastrar = () => {
@@ -40,12 +40,7 @@ class Login extends React.Component {
             <div className="row">
                 <div className="col-md-6" style={{ position: 'relative', left: '300px' }}>
                     <Card title='Login'>
-                        <div className="row text-center">
-                            <div className="alert alert-dismissible alert-danger">
-                                <button type="button" className="close" data-dismiss="alert">&times;</button>
-                                <strong>{this.state.mensagemErro}</strong>
-                            </div>
-                        </div>
+                        <span className="text-danger">{this.state.mensagemErro}</span>
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="bs-component">

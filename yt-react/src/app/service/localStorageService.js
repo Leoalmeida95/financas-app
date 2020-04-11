@@ -9,7 +9,7 @@ class LocalStorageService{
     }
 
     static obterItem(chave){
-        return localStorage.getItem(chave);
+        return JSON.parse(localStorage.getItem(chave));
     }
 }
 

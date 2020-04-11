@@ -1,11 +1,13 @@
 import React from 'react';
-import UsuarioService from '../app/service/usuarioService'
+import UsuarioService from '../app/service/usuarioService';
+import LocalStorageService from '../app/service/localStorageService';
 
 class Home extends React.Component {
 
     state = {
         saldo: 0,
-        usuario_email: null
+        usuario_email: null,
+        mensagemErro: null
     }
 
     constructor() {
@@ -14,16 +16,16 @@ class Home extends React.Component {
     }
 
     componentDidMount(){
-        var usuario_logado = JSON.parse(localStorage.getItem('_usuario_logado'));  
+        var usuario_logado = LocalStorageService.obterItem('_usuario_logado');
         this.setState({usuario_email: usuario_logado.email});
 
         this.usuarioService.obterSaldoPorUsuario(usuario_logado.id)
-            .then(response => {
-                this.setState({saldo: response.data})
-            })
-            .catch(error => {
-            
-            })
+                .then(response => {
+                    this.setState({saldo: response.data})
+                })
+                .catch(error => {
+                    this.setState({ mensagemErro: error.response.data });
+                })
     }
 
     render() {
