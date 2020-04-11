@@ -20,29 +20,48 @@ class CadastroUsuario extends React.Component {
     }
 
     cadastrar = () => {
-        if (this.formEhValdio()) {
-            this.service.salvar(this.state)
-                .then(response => {
-                        mensagemSucesso("Cadastro realizado com sucesso.");
-                        this.props.history.push('/login');
-                    })
-                .catch(error => {
-                        mensagemErro(error.response.data);
-                    });
+        var mensagensValidacoes = this.validacoes();
+
+        if(mensagensValidacoes && mensagensValidacoes.length > 0){
+            mensagensValidacoes.forEach((msg,index) => {
+                mensagemErro(msg);
+            });
+            return false;
         }
+
+        this.service.salvar(this.state)
+            .then(response => {
+                    mensagemSucesso("Cadastro realizado com sucesso.");
+                    this.props.history.push('/login');
+                })
+            .catch(error => {
+                    mensagemErro(error.response.data);
+                });
     }
 
     cancelar = () => {
         this.props.history.push('/login')
     }
 
-    formEhValdio = () => {
-        if (this.state.senha !== this.state.senhaRepeticao) {
-            mensagemAviso("As senhas não coincidem.");
-            return false;
-        }
+    validacoes = () => {
+        var msgs = [];
 
-        return true;
+        if(!this.state.nome)
+            msgs.push("O campo Nome é obrigatório.");
+
+        if(!this.state.email)
+            msgs.push("O campo Email é obrigatório.");
+        else if(!this.state.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/))
+            msgs.push("Informe um Emal válido.");
+
+        if(!this.state.senha || !this.state.senhaRepeticao)
+            msgs.push("Informe a senha e a Confirmação.");
+        else if(this.state.senha !== this.state.senhaRepeticao)
+            msgs.push("As senhas não coincidem.");
+        else if(this.state.senha.length < 6)
+        msgs.push("A senha deve ter pelo menos 6 dígitos.");
+
+        return msgs;
     }
 
     render() {
