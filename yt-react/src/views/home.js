@@ -1,13 +1,13 @@
 import React from 'react';
 import UsuarioService from '../app/service/usuarioService';
 import LocalStorageService from '../app/service/localStorageService';
+import {mensagemErro,mensagemSucesso} from '../components/toastr';
 
 class Home extends React.Component {
 
     state = {
         saldo: 0,
-        usuario_email: null,
-        mensagemErro: null
+        usuario_email: null
     }
 
     constructor() {
@@ -24,7 +24,7 @@ class Home extends React.Component {
                     this.setState({saldo: response.data})
                 })
                 .catch(error => {
-                    this.setState({ mensagemErro: error.response.data });
+                    mensagemErro(error.response.data);
                 })
     }
 
