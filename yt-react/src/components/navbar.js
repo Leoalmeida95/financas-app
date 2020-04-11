@@ -4,7 +4,7 @@ import NavbarItem from './navbaritem'
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-            <a className="navbar-brand" href="#/">Minhas Finanças</a>
+            <a className="navbar-brand" href="#/home">Minhas Finanças</a>
             <button className="navbar-toggler" type="button"
                 data-toggle="collapse" data-target="#navbarColor03"
                 aria-controls="navbarColor03" aria-expanded="false"
@@ -16,7 +16,7 @@ function Navbar() {
                 <ul className="navbar-nav mr-auto">
                     <NavbarItem label="Início" href="#/home" />
                     <NavbarItem label="Lançamentos" href="#/lancamentos" />
-                    <NavbarItem label="Login" href="#/login" />
+                    <NavbarItem label="Login" href="clogin" />
                 </ul>
             </div>
         </nav>

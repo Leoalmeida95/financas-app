@@ -24,7 +24,7 @@ class Login extends React.Component {
         this.service.autenticar(this.state)
             .then(response => {
                     LocalStorageService.adicionarItem('_usuario_logado', response.data);                   
-                    this.props.history.push('/');
+                    this.props.history.push('/home');
                     mensagemSucesso("Seja bem-vindo!");
                 })
             .catch(error => {

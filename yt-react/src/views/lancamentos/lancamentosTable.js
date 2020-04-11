@@ -1,6 +1,22 @@
 import React from 'react';
 
 export default props => {
+
+    var rows = props.lancamentos.map(l => {
+        return (
+            <tr className="table-secondary" key={l.id}>
+                <td>{l.descricao}</td>
+                <td>{l.valor}</td>
+                <td>{l.tipo}</td>
+                <td>{l.mes}</td>
+                <td>{l.status}</td>
+                <td>
+
+                </td>
+            </tr>
+        )
+    })
+
     return (
         <table className="table table-hover mt-5">
             <thead>
@@ -14,14 +30,7 @@ export default props => {
                 </tr>
             </thead>
             <tbody>
-                <tr className={`table-${props.color}`}>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
+                {rows}
             </tbody>
         </table>
     )
