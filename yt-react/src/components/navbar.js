@@ -15,7 +15,6 @@ function Navbar() {
             <div className="collapse navbar-collapse" id="navbarColor03">
                 <ul className="navbar-nav mr-auto">
                     <NavbarItem label="Início" href="#/home" />
-                    <NavbarItem label="Usuários" href="#/cadastro-usuarios" />
                     <NavbarItem label="Lançamentos" href="#/lancamentos" />
                     <NavbarItem label="Login" href="#/login" />
                 </ul>

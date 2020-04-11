@@ -24,7 +24,7 @@ class CadastroUsuario extends React.Component {
 
         if(mensagensValidacoes && mensagensValidacoes.length > 0){
             mensagensValidacoes.forEach((msg,index) => {
-                mensagemErro(msg);
+                mensagemAviso(msg);
             });
             return false;
         }
@@ -59,14 +59,14 @@ class CadastroUsuario extends React.Component {
         else if(this.state.senha !== this.state.senhaRepeticao)
             msgs.push("As senhas não coincidem.");
         else if(this.state.senha.length < 6)
-        msgs.push("A senha deve ter pelo menos 6 dígitos.");
+            msgs.push("A senha deve ter pelo menos 6 dígitos.");
 
         return msgs;
     }
 
     render() {
         return (
-            <Card title="Cadastro de Usuário">
+            <Card title="Cadastro de Usuário" colorText='dark' colorCard='light'>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">

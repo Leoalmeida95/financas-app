@@ -1,7 +1,8 @@
 import React from 'react';
-import Card from '../components/card';
-import FormGroup from '../components/form-group';
 import { withRouter } from 'react-router-dom';
+
+import FormGroup from '../components/form-group';
+import Card from '../components/card';
 import {mensagemErro,mensagemSucesso} from '../components/toastr';
 
 import UsuarioService from '../app/service/usuarioService';
@@ -39,7 +40,7 @@ class Login extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-6" style={{ position: 'relative', left: '300px' }}>
-                    <Card title='Login'>
+                    <Card title='Login' colorText='white' colorCard='danger'>
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="bs-component">
@@ -61,7 +62,7 @@ class Login extends React.Component {
                                                     placeholder="Senha" />
                                             </FormGroup>
                                             <button onClick={this.entrar} className="btn btn-success">Entrar</button>
-                                            <button onClick={this.prepareCadastrar} className="btn btn-warning">Cadastrar</button>
+                                            <button onClick={this.prepareCadastrar} className="btn btn-light">Cadastrar</button>
                                         </form>
                                     </fieldset>
                                 </div>
@@ -74,4 +75,4 @@ class Login extends React.Component {
     }
 }
 
-export default withRouter(Login) 
+export default withRouter(Login);
