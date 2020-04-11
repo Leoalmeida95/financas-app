@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### `npm install bootswatch`
 ### `npm install react-router-dom`
 ### `npm install axios`
+### `npm install currency-formatter`
 
 ## Available Scripts
 
