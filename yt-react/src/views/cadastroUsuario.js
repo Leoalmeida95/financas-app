@@ -70,7 +70,6 @@ class CadastroUsuario extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">
-                            <form>
                                 <FormGroup label="Nome: *" htmlFor="inputNome">
                                     <input className="form-control"
                                         type="text" id="inputNome" autoComplete="username"
@@ -91,9 +90,8 @@ class CadastroUsuario extends React.Component {
                                         type="password" id="inputRepitaSenha" autoComplete="new-password"
                                         name="senhaRepeticao" onChange={e => this.setState({ senhaRepeticao: e.target.value })}></input>
                                 </FormGroup>
-                                <button onClick={this.cadastrar} type="button" className="btn btn-success">Salvar</button>
-                                <button onClick={this.cancelar} type="button" className="btn btn-warning">Cancelar</button>
-                            </form>
+                                <button type="button" onClick={this.cadastrar} type="button" className="btn btn-success">Salvar</button>
+                                <button type="button" onClick={this.cancelar} type="button" className="btn btn-warning">Cancelar</button>
                         </div>
                     </div>
                 </div>
