@@ -12,6 +12,10 @@ class UsuarioService extends ApiService{
     obterSaldoPorUsuario(id){
         return this.get(`/${id}/saldo`);//usando a crase pra transformar a url em um tamplateString
     }
+
+    salvar(dadosCadastrais){
+        return this.post('/salvar', dadosCadastrais);
+    }
 }
 
 export default UsuarioService;

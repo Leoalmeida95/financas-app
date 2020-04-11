@@ -20,15 +20,15 @@ class Login extends React.Component {
     }
 
     entrar = () => {
-        this.service.autenticar({
-            email: this.state.email,
-            senha: this.state.senha
-                }).then(response => {
+        this.service.autenticar(this.state)
+            .then(response => {
                     LocalStorageService.adicionarItem('_usuario_logado', response.data);                   
                     this.props.history.push('/');
-                }).catch(error => {
-                    mensagemErro(error.response.data);
+                    mensagemSucesso("Seja bem-vindo!");
                 })
+            .catch(error => {
+                    mensagemErro(error.response.data);
+                });
     }
 
     prepareCadastrar = () => {
