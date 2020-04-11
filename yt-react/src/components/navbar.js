@@ -16,7 +16,7 @@ function Navbar() {
                 <ul className="navbar-nav mr-auto">
                     <NavbarItem label="Início" href="#/home" />
                     <NavbarItem label="Lançamentos" href="#/lancamentos" />
-                    <NavbarItem label="Login" href="clogin" />
+                    <NavbarItem label="Login" href="#/login" />
                 </ul>
             </div>
         </nav>

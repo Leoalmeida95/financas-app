@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Rotas from './rotas';
-import Navbar from '../components/navbar'
+import Navbar from '../components/navbar';
 
-import 'toastr/build/toastr.min.js'
+import 'toastr/build/toastr.min.js';
 
 import 'bootswatch/dist/sketchy/bootstrap.css';
 import '../custom.css';
