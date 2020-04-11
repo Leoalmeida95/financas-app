@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import FormGroup from '../components/form-group';
 import Card from '../components/card';
-import {mensagemErro,mensagemSucesso} from '../components/toastr';
+import { mensagemErro, mensagemSucesso } from '../components/toastr';
 
 import UsuarioService from '../app/service/usuarioService';
 import LocalStorageService from '../app/service/localStorageService';
@@ -23,13 +23,13 @@ class Login extends React.Component {
     entrar = () => {
         this.service.autenticar(this.state)
             .then(response => {
-                    LocalStorageService.adicionarItem('_usuario_logado', response.data);                   
-                    mensagemSucesso("Seja bem-vindo!");
-                    this.props.history.push('/');
-                })
+                LocalStorageService.adicionarItem('_usuario_logado', response.data);
+                mensagemSucesso("Seja bem-vindo!");
+                this.props.history.push('/');
+            })
             .catch(error => {
-                    mensagemErro(error.response.data);
-                });
+                mensagemErro(error.response.data);
+            });
     }
 
     prepareCadastrar = () => {
@@ -45,25 +45,23 @@ class Login extends React.Component {
                             <div className="col-lg-12">
                                 <div className="bs-component">
                                     <fieldset>
-                                        <form>
-                                            <FormGroup label="Email: *" htmlFor="exampleInputEmail1">
-                                                <input type="email"
-                                                    value={this.state.email}
-                                                    onChange={e => this.setState({ email: e.target.value })}
-                                                    className="form-control" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp" placeholder="Digite o Email" />
-                                            </FormGroup>
-                                            <FormGroup label="Senha: *" htmlFor="exampleInputSenha1">
-                                                <input type="password"
-                                                    autoComplete="on"
-                                                    value={this.state.senha}
-                                                    onChange={e => this.setState({ senha: e.target.value })}
-                                                    className="form-control" id="exampleInputSenha1"
-                                                    placeholder="Senha" />
-                                            </FormGroup>
-                                            <button onClick={this.entrar} className="btn btn-success">Entrar</button>
-                                            <button onClick={this.prepareCadastrar} className="btn btn-warning">Cadastrar</button>
-                                        </form>
+                                        <FormGroup label="Email: *" htmlFor="exampleInputEmail1">
+                                            <input type="email"
+                                                value={this.state.email}
+                                                onChange={e => this.setState({ email: e.target.value })}
+                                                className="form-control" id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" placeholder="Digite o Email" />
+                                        </FormGroup>
+                                        <FormGroup label="Senha: *" htmlFor="exampleInputSenha1">
+                                            <input type="password"
+                                                autoComplete="on"
+                                                value={this.state.senha}
+                                                onChange={e => this.setState({ senha: e.target.value })}
+                                                className="form-control" id="exampleInputSenha1"
+                                                placeholder="Senha" />
+                                        </FormGroup>
+                                        <button type="button" onClick={this.entrar} className="btn btn-success">Entrar</button>
+                                        <button type="button" onClick={this.prepareCadastrar} className="btn btn-warning">Cadastrar</button>
                                     </fieldset>
                                 </div>
                             </div>
