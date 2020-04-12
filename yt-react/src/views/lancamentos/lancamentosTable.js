@@ -3,17 +3,18 @@ import currencyFormatter from 'currency-formatter';
 
 export default props => {
 
-    var rows = props.lancamentos.map(l => {
+    var rows = props.lancamentos.map(lanc => {
         return (
-            <tr className="table-secondary" key={l.id}>
-                <td>{l.descricao}</td>
-                <td>{ currencyFormatter.format(l.valor, {locale:'pt-br'})}</td>
-                <td>{l.tipo}</td>
-                <td>{l.mes}</td>
-                <td>{l.status}</td>
+            <tr className="table-secondary" key={lanc.id}>
+                <td>{lanc.descricao}</td>
+                <td>{currencyFormatter.format(lanc.valor, { locale: 'pt-br' })}</td>
+                <td>{lanc.tipo}</td>
+                <td>{lanc.mes}</td>
+                <td>{lanc.status}</td>
                 <td>
-
-                </td>
+                    <button type="button" className="btn btn-info" onClick={ e=> props.editAction(lanc.id)} >Editar</button>     
+                    <button type="button" className="btn btn-danger" onClick={ e=> props.deleteAction(lanc)} >Deletar</button>              
+                    </td>
             </tr>
         )
     })

@@ -7,7 +7,7 @@ import SelectMenu from '../../components/selectMenu';
 import LancamentosTable from './lancamentosTable';
 import LancamentoService from '../../app/service/lancamentoService';
 import LocalStorageService from '../../app/service/localStorageService';
-import { mensagemErro, mensagemInformacao, mensagemAviso } from '../../components/toastr';
+import { mensagemErro, mensagemInformacao, mensagemAviso, mensagemSucesso } from '../../components/toastr';
 
 class Lancamentos extends React.Component {
 
@@ -55,6 +55,26 @@ class Lancamentos extends React.Component {
 
     }
 
+    editar = (id) => {
+
+    }
+
+    deletar = (lancamento) => {
+        this.service.deletar(lancamento.id)
+            .then(response =>{
+                let list_lancamentos = this.state.lancamentos;
+                const indexLancamentoDelete = list_lancamentos.indexOf(lancamento);
+                list_lancamentos.splice(indexLancamentoDelete,1);
+                this.setState(list_lancamentos);
+                mensagemSucesso("Lançamento deletado com sucesso!");
+            })
+            .catch(error =>{
+                mensagemErro(error.response.data);
+            });
+
+        
+    }
+
     render() {
 
         const meses = this.service.obterListaMeses();
@@ -87,11 +107,13 @@ class Lancamentos extends React.Component {
                     </div>
                 </div>
                 <button onClick={this.consultar} className="btn btn-warning">Consultar</button>
-                <button onClick={this.cadastrar} className="btn btn-info">Cadastrar</button>
+                <button onClick={this.cadastrar} className="btn btn-success">Cadastrar</button>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">
-                            <LancamentosTable lancamentos={this.state.lancamentos} />
+                            <LancamentosTable lancamentos={this.state.lancamentos}
+                                              deleteAction={this.deletar}
+                                              editAction={this.editar} />
                         </div>
                     </div>
                 </div>
