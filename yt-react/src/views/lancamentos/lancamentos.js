@@ -95,7 +95,7 @@ class Lancamentos extends React.Component {
                                     value={this.state.ano} onChange={e => this.setState({ ano: e.target.value })}
                                     id="inputAno" placeholder="Digite o Ano" />
                             </FormGroup>
-                            <FormGroup htmlFor="inputMes" label="Mes:">
+                            <FormGroup htmlFor="inputMes" label="Mês:">
                                 <SelectMenu id="inputMes" className="form-control" lista={meses}
                                     value={this.state.mes} onChange={e => this.setState({ mes: e.target.value })} />
                             </FormGroup>

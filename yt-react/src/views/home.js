@@ -33,15 +33,17 @@ class Home extends React.Component {
     render() {
         return (
             <div className="jumbotron">
-                <h1 className="display-3">Bem vindo(a)!</h1>
+                <h1 className="display-2">Bem vindo(a)!</h1>
                 <p className="lead">{this.state.usuario_nome}, esse é seu sistema de finanças.</p>
                 <p className="lead">Seu saldo para o mês atual é de R${this.state.saldo}</p>
                 <hr className="my-4" />
                 <p>Essa é uma área administrativa, utilize um dos botões abaixo para navegar pelo sites.</p>
-                <p className="lead">
-                    <a className="btn btn-info btn-lg" href="#/cadastro-usuarios" role="button">Cadastrar Usuário</a>
-                    <a className="btn btn-info btn-danger btn-lg" href="#/lancamentos" role="button">Cadastrar Lançamento</a>
-                </p>
+                <h4>
+                    Ver Lançamentos <a className="btn btn-info btn-danger btn-sm" href="#/lancamentos" role="button"><i className="pi pi-dollar" style={{'fontSize': '2em'}}></i></a>
+                </h4>
+                <h4>
+                    Novo Usuário <a className="btn btn-info btn-sm" href="#/cadastro-usuarios" role="button"><i className="pi pi-user-plus" style={{'fontSize': '2em'}}></i></a>
+                </h4>
             </div>
         )
     }

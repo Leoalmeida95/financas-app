@@ -12,8 +12,10 @@ export default props => {
                 <td>{lanc.mes}</td>
                 <td>{lanc.status}</td>
                 <td>
-                    <button type="button" className="btn btn-info" onClick={ e=> props.editAction(lanc.id)} >Editar</button>     
-                    <button type="button" className="btn btn-danger" onClick={ e=> props.deleteAction(lanc)} >Deletar</button>              
+                    <button type="button" className="btn btn-info" onClick={ e=> props.editAction(lanc.id)} >
+                    <i className="pi pi-pencil"></i></button>     
+                    <button type="button" className="btn btn-danger" onClick={ e=> props.deleteAction(lanc)} >
+                            <i className="pi pi-trash"></i></button>              
                     </td>
             </tr>
         )
@@ -28,7 +30,7 @@ export default props => {
                     <th scope="col">Tipo</th>
                     <th scope="col">Mês</th>
                     <th scope="col">Situação</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
