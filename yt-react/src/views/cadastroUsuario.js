@@ -75,7 +75,7 @@ class CadastroUsuario extends React.Component {
 
     render() {
         return (
-            <Card title="Cadastro de Usuário" colorText='white' colorCard='danger'>
+            <Card title="Cadastro de Usuário" colorText='white' colorCard='info'>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">

@@ -21,7 +21,26 @@ class CadastradoLancamento extends React.Component {
         tipo: '',
         descricao: '',
         valor: '',
-        status: 'PENDENTE'
+        status: 'PENDENTE',
+        usuario: null,
+        textoBotao: 'Salvar'
+    }
+
+    componentDidMount(){
+        const params = this.props.match.params;
+        
+        if(params.id){
+            
+            this.setState({textoBotao: 'Alterar'})
+
+            this.service.obterPorId(params.id)
+                .then(response => {
+                    this.setState({...response.data});//'espalha' as propriedades pelo state
+                })
+                .catch(error =>{
+                    mensagens.mensagemErro(error.response.data);
+                });
+        }
     }
 
     cancelar = () => {
@@ -55,24 +74,24 @@ class CadastradoLancamento extends React.Component {
         const tipos = this.service.obterTipos();
 
         return (
-            <Card title="Novo Lançamento" colorText='white' colorCard='info'>
+            <Card title="Novo Lançamento" colorText='white' colorCard='danger'>
                 <div className="row">
                     <div className="col-md-4">
                         <FormGroup id="inputDescricao" label="Descrição: *">
-                            <input id="inputDescricao" type="text"
+                            <input id="inputDescricao" type="text" value={this.state.descricao}
                                 className="form-control" placeholder="Ex: Pagamento"
                                 name='descricao' onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
                         <FormGroup id="inputAno" label="Ano: *">
-                            <input id="inputAno" type="text"
+                            <input id="inputAno" type="text" value={this.state.ano}
                                 className="form-control" placeholder="Ex: 2020"
                                 name='ano' onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup htmlFor="inputMes" label="Mês:">
+                        <FormGroup htmlFor="inputMes" label="Mês: *">
                             <SelectMenu id="inputMes" className="form-control" lista={meses}
                                 value={this.state.mes} name='mes' onChange={this.handleChange}  />
                         </FormGroup>
@@ -87,13 +106,13 @@ class CadastradoLancamento extends React.Component {
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup htmlFor="inputTipo" label="Tipo de Lançamento:">
+                        <FormGroup htmlFor="inputTipo" label="Tipo de Lançamento: *">
                             <SelectMenu id="inputTipo" className="form-control" lista={tipos}
                                 value={this.state.tipo} name='tipo' onChange={this.handleChange}  />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup id="inputStatus" label="Status: *">
+                        <FormGroup id="inputStatus" label="Status:">
                             <fieldset disabled="">
                                 <input id="inputStatus" type="text"
                                     className="form-control" disabled
@@ -102,7 +121,7 @@ class CadastradoLancamento extends React.Component {
                         </FormGroup>
                     </div>
                 </div>
-                <button onClick={this.cadastrar} className="btn btn-success">Salvar</button>
+        <button onClick={this.cadastrar} className="btn btn-success">{this.state.textoBotao}</button>
                 <button onClick={this.cancelar} className="btn btn-secondary">Cancelar</button>
             </Card>
         )

@@ -28,7 +28,7 @@ class Lancamentos extends React.Component {
         lancamentos: []
     }
 
-    consultar = () => {
+    consultar = () => { 
 
         if (!this.state.ano) {
             mensagens.mensagemAviso("O Ano é obrigatório.");
@@ -60,7 +60,7 @@ class Lancamentos extends React.Component {
     }
 
     editar = (id) => {
-
+        this.props.history.push(`/cadastro-lancamentos/${id}`);
     }
 
     abrirConfirmacao = (lancamento) => {

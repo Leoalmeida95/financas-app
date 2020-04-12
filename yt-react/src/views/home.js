@@ -3,7 +3,7 @@ import { mensagemErro } from '../components/toastr';
 
 import UsuarioService from '../app/service/usuarioService';
 import LocalStorageService from '../app/service/localStorageService';
-
+import currencyFormatter from 'currency-formatter';
 
 class Home extends React.Component {
 
@@ -35,11 +35,11 @@ class Home extends React.Component {
             <div className="jumbotron">
                 <h1 className="display-2">Bem vindo(a)!</h1>
                 <p className="lead">{this.state.usuario_nome}, esse é seu sistema de finanças.</p>
-                <p className="lead">Seu saldo para o mês atual é de R${this.state.saldo}</p>
+                <p className="lead">Seu saldo para o mês atual é de {currencyFormatter.format(`${this.state.saldo}`, { locale: 'pt-br' })}</p>
                 <hr className="my-4" />
                 <p>Essa é uma área administrativa, utilize um dos botões abaixo para navegar pelo sites.</p>
                 <h4>
-                    Ver Lançamentos <a className="btn btn-info btn-danger btn-sm" href="#/lancamentos" role="button"><i className="pi pi-dollar" style={{'fontSize': '2em'}}></i></a>
+                    Novo Lançamentos <a className="btn btn-info btn-danger btn-sm" href="#/cadastro-lancamentos" role="button"><i className="pi pi-dollar" style={{'fontSize': '2em'}}></i></a>
                 </h4>
                 <h4>
                     Novo Usuário <a className="btn btn-info btn-sm" href="#/cadastro-usuarios" role="button"><i className="pi pi-user-plus" style={{'fontSize': '2em'}}></i></a>

@@ -1,7 +1,11 @@
-import React from 'react'
-import NavbarItem from './navbaritem'
+import React from 'react';
+import NavbarItem from './navbaritem';
+import LocalStorageService from '../app/service/localStorageService';
 
 function Navbar() {
+    
+    const nome = LocalStorageService.obterItem('_usuario_logado').nome;
+    
     return (
         <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
             <a className="navbar-brand" href="#/home">Minhas Finanças</a>
@@ -18,6 +22,9 @@ function Navbar() {
                     <NavbarItem label="Lançamentos" href="#/lancamentos" />
                     <NavbarItem label="Login" href="#/login" />
                 </ul>
+            </div>
+            <div className="text-white">
+                Olá, {nome}! Como estão as finanças?
             </div>
         </nav>
     )
