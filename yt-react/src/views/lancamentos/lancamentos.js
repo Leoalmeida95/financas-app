@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import {Button} from 'primereact/button';
-import * as messagens from '../../components/toastr';
+import * as mensagens from '../../components/toastr';
 
 import Card from '../../components/card';
 import FormGroup from '../../components/form-group';
@@ -31,7 +31,7 @@ class Lancamentos extends React.Component {
     consultar = () => {
 
         if (!this.state.ano) {
-            messagens.mensagemAviso("O Ano é obrigatório.");
+            mensagens.mensagemAviso("O Ano é obrigatório.");
             return;
         }
 
@@ -48,10 +48,10 @@ class Lancamentos extends React.Component {
         this.service.consultar(lancamentoFiltro)
             .then(response => {
                 this.setState({ lancamentos: response.data });
-                messagens.mensagemInformacao("Consulta realizada com sucesso!");
+                mensagens.mensagemInformacao("Consulta realizada com sucesso!");
             })
             .catch(error => {
-                messagens.mensagemErro(error.response.data);
+                mensagens.mensagemErro(error.response.data);
             });
     }
 
@@ -79,10 +79,10 @@ class Lancamentos extends React.Component {
                 list_lancamentos.splice(indexLancamentoDelete, 1);
                 this.setState(list_lancamentos);
                 this.cancelarDialog();
-                messagens.mensagemSucesso("Lançamento deletado com sucesso!");
+                mensagens.mensagemSucesso("Lançamento deletado com sucesso!");
             })
             .catch(error => {
-                messagens.mensagemErro(error.response.data);
+                mensagens.mensagemErro(error.response.data);
             });
     }
 

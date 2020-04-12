@@ -29,7 +29,10 @@ class CadastroUsuario extends React.Component {
             return false;
         }
 
-        this.service.salvar(this.state)
+        const {nome,email, senha} = this.state;
+        const novoUsuario = {nome,email, senha};
+
+        this.service.salvar(novoUsuario)
             .then(response => {
                 mensagemSucesso("Cadastro realizado com sucesso.");
                 this.props.history.push('/login');
@@ -64,6 +67,12 @@ class CadastroUsuario extends React.Component {
         return msgs;
     }
 
+    handleChange = (event) =>{
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({[name]:value});
+    }
+
     render() {
         return (
             <Card title="Cadastro de Usuário" colorText='white' colorCard='danger'>
@@ -71,24 +80,24 @@ class CadastroUsuario extends React.Component {
                     <div className="col-md-12">
                         <div className="bs-component">
                             <FormGroup label="Nome: *" htmlFor="inputNome">
-                                <input className="form-control"
+                                <input className="form-control" placeholder="Judite"
                                     type="text" id="inputNome" autoComplete="username"
-                                    name="nome" onChange={e => this.setState({ nome: e.target.value })}></input>
+                                    name="nome" onChange={this.handleChange} ></input>
                             </FormGroup>
                             <FormGroup label="Email: *" htmlFor="inputEmail">
-                                <input className="form-control"
+                                <input className="form-control" placeholder="judite@email.com"
                                     type="email" id="inputEmail" autoComplete="useremail"
-                                    name="email" onChange={e => this.setState({ email: e.target.value })}></input>
+                                    name="email" onChange={this.handleChange} ></input>
                             </FormGroup>
                             <FormGroup label="Senha: *" htmlFor="inputSenha">
-                                <input className="form-control"
+                                <input className="form-control" placeholder="Senha"
                                     type="password" id="inputSenha" autoComplete="new-password"
-                                    name="senha" onChange={e => this.setState({ senha: e.target.value })}></input>
+                                    name="senha" onChange={this.handleChange} ></input>
                             </FormGroup>
                             <FormGroup label="Confirmar Senha: *" htmlFor="inputRepitaSenha">
-                                <input className="form-control"
+                                <input className="form-control" placeholder="Confirmação a senha"
                                     type="password" id="inputRepitaSenha" autoComplete="new-password"
-                                    name="senhaRepeticao" onChange={e => this.setState({ senhaRepeticao: e.target.value })}></input>
+                                    name="senhaRepeticao" onChange={this.handleChange} ></input>
                             </FormGroup>
                             <button onClick={this.cadastrar} type="button" className="btn btn-success">Salvar</button>
                             <button onClick={this.cancelar} type="button" className="btn btn-light">Cancelar</button>
