@@ -5,6 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### `npm install react-router-dom`
 ### `npm install axios`
 ### `npm install currency-formatter`
+### `npm install primereact --save`
+### `npm install primeicons --save`
+
 
 ## Available Scripts
 

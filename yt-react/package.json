@@ -9,6 +9,8 @@
     "axios": "^0.19.2",
     "bootswatch": "^4.4.1",
     "currency-formatter": "^1.5.5",
+    "primeicons": "^2.0.0",
+    "primereact": "^4.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
