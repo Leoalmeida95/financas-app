@@ -5,7 +5,7 @@ export default props => {
 
     var rows = props.lancamentos.map(lanc => {
         return (
-            <tr className="table-secondary" key={lanc.id}>
+            <tr className="table-light" key={lanc.id}>
                 <td>{lanc.descricao}</td>
                 <td>{currencyFormatter.format(lanc.valor, { locale: 'pt-br' })}</td>
                 <td>{lanc.tipo}</td>

@@ -5,6 +5,7 @@ import Login from '../views/login';
 import CadastroUsuario from '../views/cadastroUsuario';
 import Home from '../views/home';
 import Lancamentos from '../views/lancamentos/lancamentos';
+import cadastroLancamento from '../views/lancamentos/cadastroLancamento';
 
 function Rotas(){
     return(
@@ -12,6 +13,7 @@ function Rotas(){
             <Switch>
                 <Route path="/home" component={Home}/>
                 <Route path="/lancamentos" component={Lancamentos}/>
+                <Route path="/cadastro-lancamentos" component={cadastroLancamento}/>
                 <Route path="/cadastro-usuarios" component={CadastroUsuario}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/" component={Home}/>

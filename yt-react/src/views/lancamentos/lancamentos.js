@@ -56,7 +56,7 @@ class Lancamentos extends React.Component {
     }
 
     cadastrar = () => {
-
+        this.props.history.push('/cadastro-lancamentos');
     }
 
     editar = (id) => {
@@ -99,7 +99,7 @@ class Lancamentos extends React.Component {
         );
 
         return (
-            <Card title="Consulta Lançamentos" colorText='dark' colorCard='light'>
+            <Card title="Consulta Lançamentos" colorText='white' colorCard='dark'>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="bs-component">
@@ -125,7 +125,7 @@ class Lancamentos extends React.Component {
                     </div>
                 </div>
                 <button onClick={this.consultar} className="btn btn-warning">Consultar</button>
-                <button onClick={this.cadastrar} className="btn btn-success">Cadastrar</button>
+                <button onClick={this.cadastrar} className="btn btn-info">Cadastrar</button>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">

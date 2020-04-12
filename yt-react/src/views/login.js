@@ -40,7 +40,7 @@ class Login extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-6" style={{ position: 'relative', left: '300px' }}>
-                    <Card title='Login' colorText='dark' colorCard='light'>
+                    <Card title='Login' colorText='white' colorCard='primary'>
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="bs-component">

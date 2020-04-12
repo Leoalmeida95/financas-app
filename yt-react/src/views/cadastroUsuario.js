@@ -66,7 +66,7 @@ class CadastroUsuario extends React.Component {
 
     render() {
         return (
-            <Card title="Cadastro de Usuário" colorText='dark' colorCard='light'>
+            <Card title="Cadastro de Usuário" colorText='white' colorCard='danger'>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">
@@ -91,7 +91,7 @@ class CadastroUsuario extends React.Component {
                                     name="senhaRepeticao" onChange={e => this.setState({ senhaRepeticao: e.target.value })}></input>
                             </FormGroup>
                             <button onClick={this.cadastrar} type="button" className="btn btn-success">Salvar</button>
-                            <button onClick={this.cancelar} type="button" className="btn btn-warning">Cancelar</button>
+                            <button onClick={this.cancelar} type="button" className="btn btn-light">Cancelar</button>
                         </div>
                     </div>
                 </div>
