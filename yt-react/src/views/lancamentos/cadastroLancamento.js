@@ -26,18 +26,18 @@ class CadastradoLancamento extends React.Component {
         textoBotao: 'Salvar'
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const params = this.props.match.params;
-        
-        if(params.id){
-            
-            this.setState({textoBotao: 'Alterar'})
+
+        if (params.id) {
+
+            this.setState({ textoBotao: 'Alterar' })
 
             this.service.obterPorId(params.id)
                 .then(response => {
-                    this.setState({...response.data});//'espalha' as propriedades pelo state
+                    this.setState({ ...response.data });//'espalha' as propriedades pelo state
                 })
-                .catch(error =>{
+                .catch(error => {
                     mensagens.mensagemErro(error.response.data);
                 });
         }
@@ -46,27 +46,50 @@ class CadastradoLancamento extends React.Component {
     cancelar = () => {
         this.props.history.push('/lancamentos');
     }
-    
-    handleChange = (event) =>{
+
+    prepararOperacao = () => {
+        if (this.state.id !== null && this.state.id > 0)
+            this.atualizar();
+        else
+            this.cadastrar();
+    }
+
+    handleChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
-        this.setState({[name]:value});
+        this.setState({ [name]: value });
     }
 
-    cadastrar = ()=>{
+    cadastrar = () => {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
-        const {ano, mes, tipo, descricao, valor} = this.state;
-        const novoLancamento = {ano, mes, tipo, descricao, valor, usuario: usuarioLogado.id};
+        const { ano, mes, tipo, descricao, valor } = this.state;
+        const novoLancamento = { ano, mes, tipo, descricao, valor, usuario: usuarioLogado.id };
 
         this.service.salvar(novoLancamento)
-        .then(response => {
-            mensagens.mensagemSucesso("Lançamento cadastrado com sucesso.");
-            this.props.history.push('/lancamentos');
-        })
-        .catch(error =>{
-            mensagens.mensagemErro(error.response.data);
-        });
+            .then(response => {
+                mensagens.mensagemSucesso("Lançamento cadastrado com sucesso.");
+                this.props.history.push('/lancamentos');
+            })
+            .catch(error => {
+                mensagens.mensagemErro(error.response.data);
+            });
     }
+
+    atualizar = () => {
+
+        const { id, ano, mes, tipo, descricao, valor, usuario, status } = this.state;
+        const novoAtualizacao = { id, ano, mes, tipo, descricao, valor, usuario, status };
+
+        this.service.atualizar(novoAtualizacao)
+            .then(response => {
+                mensagens.mensagemSucesso("Os dados do Lançamento foram atualizados!");
+                this.props.history.push('/lancamentos');
+            })
+            .catch(error => {
+                mensagens.mensagemErro(error.response.data);
+            });
+    }
+
 
     render() {
 
@@ -87,13 +110,13 @@ class CadastradoLancamento extends React.Component {
                         <FormGroup id="inputAno" label="Ano: *">
                             <input id="inputAno" type="text" value={this.state.ano}
                                 className="form-control" placeholder="Ex: 2020"
-                                name='ano' onChange={this.handleChange} />
+                                name='ano' onChange={this.handleChange} maxLength="4" />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
                         <FormGroup htmlFor="inputMes" label="Mês: *">
                             <SelectMenu id="inputMes" className="form-control" lista={meses}
-                                value={this.state.mes} name='mes' onChange={this.handleChange}  />
+                                value={this.state.mes} name='mes' onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                 </div>
@@ -102,13 +125,13 @@ class CadastradoLancamento extends React.Component {
                         <FormGroup id="inputValor" label="Valor: *">
                             <input id="inputValor" type="text" value={this.state.valor}
                                 className="form-control" placeholder="Ex: 350"
-                                name='valor' onChange={this.handleChange}  />
+                                name='valor' onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
                         <FormGroup htmlFor="inputTipo" label="Tipo de Lançamento: *">
                             <SelectMenu id="inputTipo" className="form-control" lista={tipos}
-                                value={this.state.tipo} name='tipo' onChange={this.handleChange}  />
+                                value={this.state.tipo} name='tipo' onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
@@ -121,7 +144,7 @@ class CadastradoLancamento extends React.Component {
                         </FormGroup>
                     </div>
                 </div>
-        <button onClick={this.cadastrar} className="btn btn-success">{this.state.textoBotao}</button>
+                <button onClick={this.prepararOperacao} className="btn btn-success">{this.state.textoBotao}</button>
                 <button onClick={this.cancelar} className="btn btn-secondary">Cancelar</button>
             </Card>
         )
