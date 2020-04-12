@@ -22,8 +22,7 @@ class CadastradoLancamento extends React.Component {
         descricao: '',
         valor: '',
         status: 'PENDENTE',
-        usuario: null,
-        textoBotao: 'Salvar'
+        usuario: null
     }
 
     componentDidMount() {
@@ -31,7 +30,8 @@ class CadastradoLancamento extends React.Component {
 
         if (params.id) {
 
-            this.setState({ textoBotao: 'Alterar' })
+            this.setState({ textoBotao: 'Atualizar' })
+            this.setState({ textoTitle: 'Atualizando Lançamento' })
 
             this.service.obterPorId(params.id)
                 .then(response => {
@@ -64,32 +64,45 @@ class CadastradoLancamento extends React.Component {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
         const { ano, mes, tipo, descricao, valor } = this.state;
         const novoLancamento = { ano, mes, tipo, descricao, valor, usuario: usuarioLogado.id };
-
-        this.service.salvar(novoLancamento)
-            .then(response => {
-                mensagens.mensagemSucesso("Lançamento cadastrado com sucesso.");
-                this.props.history.push('/lancamentos');
-            })
-            .catch(error => {
-                mensagens.mensagemErro(error.response.data);
-            });
+   
+        if(this.formularioEhValido(novoLancamento)){
+            this.service.salvar(novoLancamento)
+                .then(response => {
+                    mensagens.mensagemSucesso("Lançamento cadastrado com sucesso.");
+                    this.props.history.push('/lancamentos');
+                })
+                .catch(error => {
+                    mensagens.mensagemErro(error.response.data);
+                });
+        }
     }
 
-    atualizar = () => {
-
+    atualizar = () => { 
         const { id, ano, mes, tipo, descricao, valor, usuario, status } = this.state;
-        const novoAtualizacao = { id, ano, mes, tipo, descricao, valor, usuario, status };
-
-        this.service.atualizar(novoAtualizacao)
-            .then(response => {
-                mensagens.mensagemSucesso("Os dados do Lançamento foram atualizados!");
-                this.props.history.push('/lancamentos');
-            })
-            .catch(error => {
-                mensagens.mensagemErro(error.response.data);
-            });
+        const atualizacaoLancamento = { id, ano, mes, tipo, descricao, valor, usuario, status };
+        
+        if(this.formularioEhValido(atualizacaoLancamento)){
+            this.service.atualizar(atualizacaoLancamento)
+                .then(response => {
+                    mensagens.mensagemSucesso("Os dados do Lançamento foram atualizados!");
+                    this.props.history.push('/lancamentos');
+                })
+                .catch(error => {
+                    mensagens.mensagemErro(error.response.data);
+                });
+        }
     }
 
+    formularioEhValido = (lancamento) =>{
+        try {
+            this.service.validarLancamento(lancamento);
+            return true;
+        } catch (error) {
+            const listErros = error.mensagens;
+            listErros.forEach(msg => mensagens.mensagemErro(msg));
+            return false;
+        }
+    }
 
     render() {
 
@@ -97,7 +110,7 @@ class CadastradoLancamento extends React.Component {
         const tipos = this.service.obterTipos();
 
         return (
-            <Card title="Novo Lançamento" colorText='white' colorCard='danger'>
+            <Card title={(this.state.id !== null && this.state.id > 0) ? 'Atualização Lançamento' : 'Novo Lançamento'} colorText='white' colorCard='danger'>
                 <div className="row">
                     <div className="col-md-4">
                         <FormGroup id="inputDescricao" label="Descrição: *">
@@ -110,7 +123,7 @@ class CadastradoLancamento extends React.Component {
                         <FormGroup id="inputAno" label="Ano: *">
                             <input id="inputAno" type="text" value={this.state.ano}
                                 className="form-control" placeholder="Ex: 2020"
-                                name='ano' onChange={this.handleChange} maxLength="4" />
+                                name='ano' onChange={this.handleChange} minLength="4" maxLength="4" />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
@@ -144,7 +157,7 @@ class CadastradoLancamento extends React.Component {
                         </FormGroup>
                     </div>
                 </div>
-                <button onClick={this.prepararOperacao} className="btn btn-success">{this.state.textoBotao}</button>
+                <button onClick={this.prepararOperacao} className="btn btn-success">{(this.state.id !== null && this.state.id > 0) ? 'Atualizar' : 'Salvar'}</button>
                 <button onClick={this.cancelar} className="btn btn-secondary">Cancelar</button>
             </Card>
         )

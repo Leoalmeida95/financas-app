@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
-import {Button} from 'primereact/button';
+import { Button } from 'primereact/button';
 import * as mensagens from '../../components/toastr';
 
 import Card from '../../components/card';
@@ -28,31 +28,42 @@ class Lancamentos extends React.Component {
         lancamentos: []
     }
 
-    consultar = () => { 
-
-        if (!this.state.ano) {
-            mensagens.mensagemAviso("O Ano é obrigatório.");
-            return;
+    formularioEhValido = () =>{
+        try {
+            this.service.validarConsulta(this.state.ano);
+            return true;
+        } catch (error) {
+            const listErros = error.mensagens;
+            listErros.forEach(msg => mensagens.mensagemErro(msg));
+            return false;
         }
+    }
 
-        const idUsuario = LocalStorageService.obterItem('_usuario_logado').id;
-
-        const lancamentoFiltro = {
-            ano: this.state.ano,
-            mes: this.state.mes,
-            tipo: this.state.tipo,
-            descricao: this.state.descricao,
-            usuario: idUsuario
+    consultar = () => {
+        if(this.formularioEhValido()){
+            const idUsuario = LocalStorageService.obterItem('_usuario_logado').id;
+    
+            const lancamentoFiltro = {
+                ano: this.state.ano,
+                mes: this.state.mes,
+                tipo: this.state.tipo,
+                descricao: this.state.descricao,
+                usuario: idUsuario
+            }
+    
+            this.service.consultar(lancamentoFiltro)
+                .then(response => {
+                    this.setState({ lancamentos: response.data });
+    
+                    if (response.data.length > 0)
+                        mensagens.mensagemInformacao("Consulta realizada com sucesso!");
+                    else
+                        mensagens.mensagemAviso("A consulta não retornou resultados.");
+                })
+                .catch(error => {
+                    mensagens.mensagemErro(error.response.data);
+                });
         }
-
-        this.service.consultar(lancamentoFiltro)
-            .then(response => {
-                this.setState({ lancamentos: response.data });
-                mensagens.mensagemInformacao("Consulta realizada com sucesso!");
-            })
-            .catch(error => {
-                mensagens.mensagemErro(error.response.data);
-            });
     }
 
     cadastrar = () => {
@@ -67,8 +78,8 @@ class Lancamentos extends React.Component {
         this.setState({ showConfirmDialog: true, lancamentoExclusao: lancamento })
     }
 
-    cancelarDialog = () =>{
-        this.setState({showConfirmDialog:false, lancamentoExclusao: {}});
+    cancelarDialog = () => {
+        this.setState({ showConfirmDialog: false, lancamentoExclusao: {} });
     }
 
     deletar = () => {
@@ -109,7 +120,7 @@ class Lancamentos extends React.Component {
                                     id="inputDescricao" placeholder="Digite a Descricao" />
                             </FormGroup>
                             <FormGroup htmlFor="inputAno" label="Ano: *">
-                                <input type="text" className="form-control"
+                                <input type="text" className="form-control" minLength="4" maxLength="4"
                                     value={this.state.ano} onChange={e => this.setState({ ano: e.target.value })}
                                     id="inputAno" placeholder="Digite o Ano" />
                             </FormGroup>
@@ -126,15 +137,25 @@ class Lancamentos extends React.Component {
                 </div>
                 <button onClick={this.consultar} className="btn btn-warning">Consultar</button>
                 <button onClick={this.cadastrar} className="btn btn-info">Cadastrar</button>
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="bs-component">
-                            <LancamentosTable lancamentos={this.state.lancamentos}
-                                deleteAction={this.abrirConfirmacao}
-                                editAction={this.editar} />
-                        </div>
-                    </div>
-                </div>
+                {
+                    this.state.lancamentos && this.state.lancamentos.length ?
+                        (
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="bs-component">
+                                        <LancamentosTable lancamentos={this.state.lancamentos}
+                                            deleteAction={this.abrirConfirmacao}
+                                            editAction={this.editar} />
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                        :
+                        (
+                            <>
+                            </>
+                        )
+                }
                 <div>
                     <Dialog header="Confirmação"
                         visible={this.state.showConfirmDialog}

@@ -2,10 +2,7 @@ import React from 'react';
 import NavbarItem from './navbaritem';
 import LocalStorageService from '../app/service/localStorageService';
 
-function Navbar() {
-    
-    const nome = LocalStorageService.obterItem('_usuario_logado').nome;
-    
+function Navbar() {    
     return (
         <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
             <a className="navbar-brand" href="#/home">Minhas Finanças</a>
@@ -24,7 +21,7 @@ function Navbar() {
                 </ul>
             </div>
             <div className="text-white">
-                Olá, {nome}! Como estão as finanças?
+                Olá, {LocalStorageService.obterItem('_usuario_logado').nome}! Como estão as finanças?
             </div>
         </nav>
     )

@@ -1,11 +1,12 @@
 import ApiService from '../apiservice';
+import ErroValidacao from '../exception/erroValdiacao';
 
-export default class LancamentoService extends ApiService{
-    constructor(){
+export default class LancamentoService extends ApiService {
+    constructor() {
         super('/api/lancamentos');
     }
 
-    obterListaMeses(){
+    obterListaMeses() {
         return [
             { label: 'Selecione...', value: '' },
             { label: 'Janeiro', value: '1' },
@@ -23,7 +24,7 @@ export default class LancamentoService extends ApiService{
         ];
     }
 
-    obterTipos(){
+    obterTipos() {
         return [
             { label: 'Selecione...', value: '' },
             { label: 'Despesa', value: 'DESPESA' },
@@ -31,45 +32,83 @@ export default class LancamentoService extends ApiService{
         ];
     }
 
-    consultar(LancamentoFiltro){
+    consultar(LancamentoFiltro) {
         let params = `?ano=${LancamentoFiltro.ano}`;
 
-        if(LancamentoFiltro.mes){
+        if (LancamentoFiltro.mes) {
             params = `${params}&mes=${LancamentoFiltro.mes}`;
         }
 
-        if(LancamentoFiltro.tipo){
+        if (LancamentoFiltro.tipo) {
             params = `${params}&tipo=${LancamentoFiltro.tipo}`;
         }
 
-        if(LancamentoFiltro.status){
+        if (LancamentoFiltro.status) {
             params = `${params}&status=${LancamentoFiltro.status}`;
         }
 
-        if(LancamentoFiltro.usuario){
+        if (LancamentoFiltro.usuario) {
             params = `${params}&usuario=${LancamentoFiltro.usuario}`;
         }
 
-        if(LancamentoFiltro.descricao){
+        if (LancamentoFiltro.descricao) {
             params = `${params}&descricao=${LancamentoFiltro.descricao}`;
         }
 
         return this.get(params);
     }
 
-    deletar(id){
+    deletar(id) {
         return this.delete(`/${id}`);
     }
 
-    salvar(lancamento){
-        return this.post('/',lancamento);
+    salvar(lancamento) {
+        return this.post('/', lancamento);
     }
 
-    obterPorId(id){
+    obterPorId(id) {
         return this.get(`/${id}`);
     }
 
-    atualizar(lancamento){
-        return this.put(`/${lancamento.id}`,lancamento);
+    atualizar(lancamento) {
+        return this.put(`/${lancamento.id}`, lancamento);
+    }
+
+    validarLancamento(lancamento) {
+        const erros = [];
+
+        if (!lancamento.ano)
+            erros.push("Inform o Ano.");
+        else if (lancamento.ano.length !== 4)
+            erros.push("O Ano deve ter 4 dígitos.");
+
+        if (!lancamento.descricao)
+            erros.push("Inform o Descrição.");
+
+        if (!lancamento.mes)
+            erros.push("Inform o Mês.");
+
+        if (!lancamento.tipo)
+            erros.push("Inform o Tipo.");
+
+        if (!lancamento.valor)
+            erros.push("Inform o Valor.");
+
+        if (erros && erros.length) {
+            throw new ErroValidacao(erros);
+        }
+    }
+
+    validarConsulta(ano){
+        const erros = [];
+
+        if (!ano)
+            erros.push("Inform o Ano.");
+        else if (ano.length !== 4)
+            erros.push("O Ano deve ter 4 dígitos.");
+
+        if (erros && erros.length) {
+            throw new ErroValidacao(erros);
+        }
     }
 }
