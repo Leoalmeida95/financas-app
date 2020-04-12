@@ -8,7 +8,7 @@ import 'bootswatch/dist/sketchy/bootstrap.css';
 import '../custom.css';
 import 'toastr/build/toastr.css';
 import 'toastr/build/toastr.min.js';
-import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/themes/nova-dark/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
