@@ -5,7 +5,7 @@ import FormGroup from '../../components/form-group';
 import SelectMenu from '../../components/selectMenu';
 import LancamentoService from '../../app/service/lancamentoService';
 import * as mensagens from '../../components/toastr';
-import AuthService from '../../app/service/authService';
+import {AuthContext} from '../../main/provedorAutenticacao';
 
 class CadastradoLancamento extends React.Component {
 
@@ -62,7 +62,7 @@ class CadastradoLancamento extends React.Component {
 
     cadastrar = () => {
         const { ano, mes, tipo, descricao, valor } = this.state;
-        const novoLancamento = { ano, mes, tipo, descricao, valor, usuario: AuthService.usuarioId() };
+        const novoLancamento = { ano, mes, tipo, descricao, valor, usuario: this.context.usuarioAutenticado.id };
    
         if(this.formularioEhValido(novoLancamento)){
             this.service.salvar(novoLancamento)
@@ -162,5 +162,7 @@ class CadastradoLancamento extends React.Component {
         )
     }
 }
+
+CadastradoLancamento.contextType = AuthContext;
 
 export default withRouter(CadastradoLancamento);

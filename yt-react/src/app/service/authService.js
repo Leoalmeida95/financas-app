@@ -1,6 +1,6 @@
 import LocalStorageService from './localStorageService';
 
-export const USUARIO_LOGADO = '_usuario_logado';
+const USUARIO_LOGADO = '_usuario_logado';
 
 export default class AuthService{
 
@@ -9,16 +9,8 @@ export default class AuthService{
         return usuario && usuario.id;
     }
 
-    static removerUsuarioAutenticado(){
+    static deslogar(){
         LocalStorageService.removerItem(USUARIO_LOGADO);
-    }
-
-    static usuarioNome(){
-        return LocalStorageService.obterItem(USUARIO_LOGADO).nome;
-    }
-
-    static usuarioId(){
-        return LocalStorageService.obterItem(USUARIO_LOGADO).id;
     }
 
     static logar(usuario){

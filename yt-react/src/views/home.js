@@ -3,7 +3,7 @@ import { mensagemErro } from '../components/toastr';
 
 import UsuarioService from '../app/service/usuarioService';
 import currencyFormatter from 'currency-formatter';
-import AuthService from '../app/service/authService';
+import { AuthContext } from '../main/provedorAutenticacao';
 
 class Home extends React.Component {
 
@@ -18,9 +18,10 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ usuario_nome: AuthService.usuarioNome() });
+        const usuarioLogado = this.context.usuarioAutenticado;
+        this.setState({ usuario_nome: usuarioLogado.nome });
 
-        this.usuarioService.obterSaldoPorUsuario(AuthService.usuarioId())
+        this.usuarioService.obterSaldoPorUsuario(usuarioLogado.id)
             .then(response => {
                 this.setState({ saldo: response.data })
             })
@@ -38,7 +39,7 @@ class Home extends React.Component {
                 <hr className="my-4" />
                 <p>Essa é uma área administrativa, utilize um dos botões abaixo para navegar pelo sites.</p>
                 <h4>
-                    Novo Lançamentos <a className="btn btn-info btn-danger btn-sm" href="#/cadastro-lancamentos" role="button"><i className="pi pi-dollar" style={{'fontSize': '2em'}}></i></a>
+                    Novo Lançamentos <a className="btn btn-info btn-danger btn-sm" href="#/cadastro-lancamentos" role="button"><i className="pi pi-dollar" style={{ 'fontSize': '2em' }}></i></a>
                 </h4>
                 {/* <h4>
                     Novo Usuário <a className="btn btn-info btn-sm" href="#/cadastro-usuarios" role="button"><i className="pi pi-user-plus" style={{'fontSize': '2em'}}></i></a>
@@ -47,5 +48,7 @@ class Home extends React.Component {
         )
     }
 }
+
+Home.contextType = AuthContext;
 
 export default Home;

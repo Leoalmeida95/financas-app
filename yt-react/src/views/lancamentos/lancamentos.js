@@ -9,7 +9,7 @@ import FormGroup from '../../components/form-group';
 import SelectMenu from '../../components/selectMenu';
 import LancamentosTable from './lancamentosTable';
 import LancamentoService from '../../app/service/lancamentoService';
-import AuthService from '../../app/service/authService';
+import {AuthContext} from '../../main/provedorAutenticacao';
 
 class Lancamentos extends React.Component {
 
@@ -47,7 +47,7 @@ class Lancamentos extends React.Component {
                 mes: this.state.mes,
                 tipo: this.state.tipo,
                 descricao: this.state.descricao,
-                usuario: AuthService.usuarioId()
+                usuario: this.context.usuarioAutenticado.id
             }
     
             this.service.consultar(lancamentoFiltro)
@@ -187,5 +187,7 @@ class Lancamentos extends React.Component {
         )
     }
 }
+
+Lancamentos.contextType = AuthContext;
 
 export default withRouter(Lancamentos);
