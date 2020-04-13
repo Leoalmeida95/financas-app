@@ -4,10 +4,7 @@ import ErroValidacao from '../exception/erroValdiacao';
 export default class LancamentoService extends ApiService {
     constructor() {
         super('/api/lancamentos');
-    }
-
-    obterListaMeses() {
-        return [
+        this.meses = [
             { label: 'Selecione...', value: '' },
             { label: 'Janeiro', value: '1' },
             { label: 'Fevereiro', value: '2' },
@@ -21,7 +18,16 @@ export default class LancamentoService extends ApiService {
             { label: 'Outubro', value: '10' },
             { label: 'Novembro', value: '11' },
             { label: 'Dezembro', value: '12' }
-        ];
+        ];    
+    }
+
+    obterListaMeses() {
+        return this.meses;
+    }
+
+    obterMes(valor){
+        var mes = this.meses.find(x=> x.value == valor);
+        return mes.label;
     }
 
     obterTipos() {

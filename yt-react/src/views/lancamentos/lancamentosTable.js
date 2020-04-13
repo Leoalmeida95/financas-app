@@ -15,16 +15,20 @@ export default props => {
                 <td>{lanc.descricao}</td>
                 <td>{currencyFormatter.format(lanc.valor, { locale: 'pt-br' })}</td>
                 <td>{lanc.tipo}</td>
-                <td>{lanc.mes}</td>
+                <td>{service.obterMes(lanc.mes)}</td>
                 <td>
                     <SelectMenu id="inputStatus" className="form-control" lista={listStatus}
-                        value={lanc.status} name='mes' onChange={e => props.changeAction(lanc, e.target.value)} />
+                        value={lanc.status} name='mes' onChange={e => props.changeAction(lanc, e.target.value)}
+                        disabled={lanc.status !== "PENDENTE"} />
                 </td>
                 <td>
-                    <button type="button" className="btn btn-info" onClick={e => props.editAction(lanc.id)} >
-                        <i className="pi pi-pencil"></i></button>
-                    <button type="button" className="btn btn-danger" onClick={e => props.deleteAction(lanc)} >
-                        <i className="pi pi-trash"></i></button>
+                    <button type="button" title="Editar" className="btn btn-info"
+                        onClick={e => props.editAction(lanc.id)} disabled={lanc.status !== "PENDENTE"}>
+                        <i className="pi pi-pencil" ></i>
+                    </button>
+                    <button type="button" title="Excluir" className="btn btn-danger"
+                        onClick={e => props.deleteAction(lanc)} disabled={lanc.status !== "PENDENTE"} >
+                        <i className="pi pi-trash" title="Excluir"></i></button>
                 </td>
             </tr>
         )
@@ -38,7 +42,7 @@ export default props => {
                     <th scope="col">Valor</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Mês</th>
-                    <th scope="col" style={ {width:'15%'}} >Situação</th>
+                    <th scope="col" style={{ width: '15%' }} >Situação</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
