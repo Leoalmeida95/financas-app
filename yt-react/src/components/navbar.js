@@ -1,8 +1,12 @@
 import React from 'react';
 import NavbarItem from './navbaritem';
-import LocalStorageService from '../app/service/localStorageService';
+import AuthService from '../app/service/authService';
 
-function Navbar() {    
+const deslogar = () => {
+    AuthService.removerUsuarioAutenticado();
+}
+
+function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
             <a className="navbar-brand" href="#/home">Minhas Finanças</a>
@@ -15,13 +19,30 @@ function Navbar() {
 
             <div className="collapse navbar-collapse" id="navbarColor03">
                 <ul className="navbar-nav mr-auto">
-                    <NavbarItem label="Início" href="#/home" />
-                    <NavbarItem label="Lançamentos" href="#/lancamentos" />
-                    <NavbarItem label="Login" href="#/login" />
+                    <NavbarItem render={AuthService.usuarioAutenticado()} label="Início" href="#/home" />
+                    <NavbarItem render={AuthService.usuarioAutenticado()}  label="Lançamentos" href="#/lancamentos" />
                 </ul>
             </div>
             <div className="text-white">
-                Olá, {LocalStorageService.obterItem('_usuario_logado').nome}! Como estão as finanças?
+                {
+                    AuthService.usuarioAutenticado() ?
+                        (
+                            <div>
+                                <div className="collapse navbar-collapse" id="navbarColor03">
+                                 Olá, {AuthService.usuarioNome()}! Como estão as finanças?
+                                    <ul className="navbar-nav mr-auto">
+                                        <NavbarItem render={AuthService.usuarioAutenticado()}  onClick={deslogar} label="Sair" href="#/login" />
+                                    </ul>
+                                </div>
+                            </div>
+                        )
+                        :
+                        (
+                            <>
+                            </>
+                        )
+                }
+
             </div>
         </nav>
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mensagemErro, mensagemSucesso, mensagemAviso } from '../components/toastr';
+import { mensagemErro, mensagemSucesso } from '../components/toastr';
 import { withRouter } from 'react-router-dom'
 import Card from '../components/card';
 import FormGroup from '../components/form-group';

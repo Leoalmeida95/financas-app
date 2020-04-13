@@ -26,7 +26,7 @@ export default class LancamentoService extends ApiService {
     }
 
     obterMes(valor){
-        var mes = this.meses.find(x=> x.value == valor);
+        var mes = this.meses.find(x=> x.value === valor);
         return mes.label;
     }
 

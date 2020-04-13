@@ -9,7 +9,7 @@ import FormGroup from '../../components/form-group';
 import SelectMenu from '../../components/selectMenu';
 import LancamentosTable from './lancamentosTable';
 import LancamentoService from '../../app/service/lancamentoService';
-import LocalStorageService from '../../app/service/localStorageService';
+import AuthService from '../../app/service/authService';
 
 class Lancamentos extends React.Component {
 
@@ -41,14 +41,13 @@ class Lancamentos extends React.Component {
 
     consultar = () => {
         if(this.formularioEhValido()){
-            const idUsuario = LocalStorageService.obterItem('_usuario_logado').id;
-    
+
             const lancamentoFiltro = {
                 ano: this.state.ano,
                 mes: this.state.mes,
                 tipo: this.state.tipo,
                 descricao: this.state.descricao,
-                usuario: idUsuario
+                usuario: AuthService.usuarioId()
             }
     
             this.service.consultar(lancamentoFiltro)

@@ -6,7 +6,7 @@ import Card from '../components/card';
 import { mensagemErro, mensagemSucesso } from '../components/toastr';
 
 import UsuarioService from '../app/service/usuarioService';
-import LocalStorageService from '../app/service/localStorageService';
+import {AuthContext} from '../main/provedorAutenticacao';
 
 class Login extends React.Component {
 
@@ -23,9 +23,9 @@ class Login extends React.Component {
     entrar = () => {
         this.service.autenticar(this.state)
             .then(response => {
-                LocalStorageService.adicionarItem('_usuario_logado', response.data);
+                this.context.iniciarSessao(response.data);
                 mensagemSucesso("Seja bem-vindo!");
-                this.props.history.push('/');
+                this.props.history.push('/home');
             })
             .catch(error => {
                 mensagemErro(error.response.data);
@@ -72,5 +72,7 @@ class Login extends React.Component {
         )
     }
 }
+
+Login.contextType = AuthContext;
 
 export default withRouter(Login);

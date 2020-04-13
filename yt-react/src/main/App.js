@@ -2,7 +2,7 @@ import React from 'react';
 
 import Rotas from './rotas';
 import Navbar from '../components/navbar';
-
+import ProvedorAutenticacao from './provedorAutenticacao';
 
 import 'bootswatch/dist/sketchy/bootstrap.css';
 import '../custom.css';
@@ -16,12 +16,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <ProvedorAutenticacao>
         <Navbar />
         <div className="container">
           <Rotas />
         </div>
-      </>
+      </ProvedorAutenticacao>
     )
   }
 }

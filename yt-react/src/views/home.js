@@ -2,8 +2,8 @@ import React from 'react';
 import { mensagemErro } from '../components/toastr';
 
 import UsuarioService from '../app/service/usuarioService';
-import LocalStorageService from '../app/service/localStorageService';
 import currencyFormatter from 'currency-formatter';
+import AuthService from '../app/service/authService';
 
 class Home extends React.Component {
 
@@ -18,10 +18,9 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        var usuario_logado = LocalStorageService.obterItem('_usuario_logado');
-        this.setState({ usuario_nome: usuario_logado.nome });
+        this.setState({ usuario_nome: AuthService.usuarioNome() });
 
-        this.usuarioService.obterSaldoPorUsuario(usuario_logado.id)
+        this.usuarioService.obterSaldoPorUsuario(AuthService.usuarioId())
             .then(response => {
                 this.setState({ saldo: response.data })
             })
@@ -41,9 +40,9 @@ class Home extends React.Component {
                 <h4>
                     Novo Lançamentos <a className="btn btn-info btn-danger btn-sm" href="#/cadastro-lancamentos" role="button"><i className="pi pi-dollar" style={{'fontSize': '2em'}}></i></a>
                 </h4>
-                <h4>
+                {/* <h4>
                     Novo Usuário <a className="btn btn-info btn-sm" href="#/cadastro-usuarios" role="button"><i className="pi pi-user-plus" style={{'fontSize': '2em'}}></i></a>
-                </h4>
+                </h4> */}
             </div>
         )
     }

@@ -5,7 +5,7 @@ import FormGroup from '../../components/form-group';
 import SelectMenu from '../../components/selectMenu';
 import LancamentoService from '../../app/service/lancamentoService';
 import * as mensagens from '../../components/toastr';
-import LocalStorageService from '../../app/service/localStorageService';
+import AuthService from '../../app/service/authService';
 
 class CadastradoLancamento extends React.Component {
 
@@ -61,9 +61,8 @@ class CadastradoLancamento extends React.Component {
     }
 
     cadastrar = () => {
-        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
         const { ano, mes, tipo, descricao, valor } = this.state;
-        const novoLancamento = { ano, mes, tipo, descricao, valor, usuario: usuarioLogado.id };
+        const novoLancamento = { ano, mes, tipo, descricao, valor, usuario: AuthService.usuarioId() };
    
         if(this.formularioEhValido(novoLancamento)){
             this.service.salvar(novoLancamento)
