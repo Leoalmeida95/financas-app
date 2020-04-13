@@ -32,6 +32,14 @@ export default class LancamentoService extends ApiService {
         ];
     }
 
+    obterStatus() {
+        return [
+            { label: 'Pendente', value: "PENDENTE" },
+            { label: 'Efetivado', value: "EFETIVADO" },
+            { label: 'Cancelado', value: "CANCELADO" }
+        ];
+    }
+
     consultar(LancamentoFiltro) {
         let params = `?ano=${LancamentoFiltro.ano}`;
 
@@ -110,5 +118,9 @@ export default class LancamentoService extends ApiService {
         if (erros && erros.length) {
             throw new ErroValidacao(erros);
         }
+    }
+
+    alterarStatus(id, status){
+        return this.put(`/${id}/atualizar-status`, {status})
     }
 }

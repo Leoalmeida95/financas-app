@@ -66,6 +66,22 @@ class Lancamentos extends React.Component {
         }
     }
 
+    alterarStatus = (lancamento,status) => {
+        this.service.alterarStatus(lancamento.id,status)
+        .then(response =>{
+            const index = this.state.lancamentos.indexOf(lancamento);
+            if(index !== -1){
+                lancamento.status = status;
+                this.setState({status: status})
+                this.state.lancamentos.slice(index,1,lancamento);
+            }
+            mensagens.mensagemSucesso("O status do Lançamento foi atualizado!");
+        })
+        .catch(error =>{
+            mensagens.mensagemErro(error.response.data);
+        });
+    }
+
     cadastrar = () => {
         this.props.history.push('/cadastro-lancamentos');
     }
@@ -145,7 +161,8 @@ class Lancamentos extends React.Component {
                                     <div className="bs-component">
                                         <LancamentosTable lancamentos={this.state.lancamentos}
                                             deleteAction={this.abrirConfirmacao}
-                                            editAction={this.editar} />
+                                            editAction={this.editar} 
+                                            changeAction={this.alterarStatus}/>
                                     </div>
                                 </div>
                             </div>

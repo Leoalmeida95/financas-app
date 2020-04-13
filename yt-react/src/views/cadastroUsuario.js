@@ -20,57 +20,39 @@ class CadastroUsuario extends React.Component {
     }
 
     cadastrar = () => {
-        var mensagensValidacoes = this.validacoes();
-
-        if (mensagensValidacoes && mensagensValidacoes.length > 0) {
-            mensagensValidacoes.forEach((msg, index) => {
-                mensagemAviso(msg);
-            });
-            return false;
+        const { nome, email, senha, senhaRepeticao } = this.state;
+        const novoUsuario = { nome, email, senha, senhaRepeticao };
+        if (this.formularioEhValido(novoUsuario)) {
+            this.service.salvar(novoUsuario)
+                .then(response => {
+                    mensagemSucesso("Cadastro realizado com sucesso.");
+                    this.props.history.push('/login');
+                })
+                .catch(error => {
+                    mensagemErro(error.response.data);
+                });
         }
-
-        const {nome,email, senha} = this.state;
-        const novoUsuario = {nome,email, senha};
-
-        this.service.salvar(novoUsuario)
-            .then(response => {
-                mensagemSucesso("Cadastro realizado com sucesso.");
-                this.props.history.push('/login');
-            })
-            .catch(error => {
-                mensagemErro(error.response.data);
-            });
     }
 
     cancelar = () => {
         this.props.history.push('/login')
     }
 
-    validacoes = () => {
-        var msgs = [];
-
-        if (!this.state.nome)
-            msgs.push("O campo Nome é obrigatório.");
-
-        if (!this.state.email)
-            msgs.push("O campo Email é obrigatório.");
-        else if (!this.state.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/))
-            msgs.push("Informe um Emal válido.");
-
-        if (!this.state.senha || !this.state.senhaRepeticao)
-            msgs.push("Informe a senha e a Confirmação.");
-        else if (this.state.senha !== this.state.senhaRepeticao)
-            msgs.push("As senhas não coincidem.");
-        else if (this.state.senha.length < 6)
-            msgs.push("A senha deve ter pelo menos 6 dígitos.");
-
-        return msgs;
+    formularioEhValido = (usuario) => {
+        try {
+            this.service.validarFormulario(usuario);
+            return true;
+        } catch (error) {
+            const listErros = error.mensagens;
+            listErros.forEach(msg => mensagemErro(msg));
+            return false;
+        }
     }
 
-    handleChange = (event) =>{
+    handleChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
-        this.setState({[name]:value});
+        this.setState({ [name]: value });
     }
 
     render() {
