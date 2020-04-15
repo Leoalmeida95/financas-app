@@ -1,0 +1,50 @@
+version: "3"
+volumes:
+  postgres-data:
+networks:
+  banco:
+  web:
+services:
+  postgres:
+    image: postgres:9.6
+    container_name: postgres
+    volumes:
+      # Volume dos dados
+      - postgres-data:/var/lib/postgresql/data
+      # Scripts
+      - ./scripts:/scripts
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=react
+    restart: unless-stopped
+    networks:
+      - banco
+  frontend:
+    build: ./web
+    container_name: frontend
+    ports:
+      - 80:80
+    networks:
+      - web
+    depends_on: 
+      - springbootapp
+  springbootapp:
+    build: ./financas-api
+    container_name: springbootapp
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    environment: 
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/react
